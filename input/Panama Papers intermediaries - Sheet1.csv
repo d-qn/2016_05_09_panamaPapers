@@ -1,0 +1,8 @@
+code,EN,FR,DE,IT,PT,AR,RU,ES,JA,ZH
+main.title,The intermediaries invoved in the Panama papers,,,,,,,,,
+descr,"The ""intermediaries"" are typically a law-firm or a middleman that asks an offshore service provider to create an offshore firm for a client. Mossack Fonseca worked with more than 14,000 of these intermediaries shown in this map.",,,,,,,,,
+source,Source,source,Quelle,Fonte,fonte,المصدر,Источник,Fuente,出典,来源
+source.name,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists
+source.link,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org
+code,Code,code,Code,Codice,código,الرمز,Код,código,コード,代码
+layer.abs,intermediaries,,,,,,,,,

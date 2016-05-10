@@ -1,0 +1,169 @@
+---
+title: "Quick visualisation of Panama papers' intermediaries  "
+author: "Duc-Quang Nguyen for swissinfo.ch"
+date: "10 May 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(swiTheme)
+library(ggplot2)
+library(leaflet)
+library(countrycode)
+library(htmlwidgets)
+library(htmltools)
+library(swiRcharts)
+library(swiMap)
+library(ggmap)
+library(WDI)
+
+geocode <- F
+getWBPop <- F
+
+translation.file <- "input/Panama Papers intermediaries - Sheet1.csv"
+```
+
+
+```{r loadata, include=FALSE}
+data.int <- read.csv("data/Intermediaries.csv", stringsAsFactors = F)
+
+# make factors
+data.int$sourceID <- as.factor(data.int$sourceID)
+data.int$node_id <- as.factor(data.int$node_id)
+data.int$country_codes <- as.factor(data.int$country_codes)
+data.int$countries <- as.factor(data.int$countries)
+
+# filter panama papers
+data <- data.int %>% filter(sourceID == "Panama Papers")
+```
+
+```{r explore}
+if(!geocode) {
+  
+  iso3 <- table(data.int$country_codes)
+  countries <- table(data.int$countries)
+  names(countries)[which(names(countries) == "")] <- "Not identified"
+  
+  countries.spt <- strsplit(names(countries), ";")
+  counts <- do.call(rbind, lapply(1:length(countries.spt), function(i) {
+    data.frame(country = countries.spt[[i]], count = as.numeric(countries[i]))
+  }))
+  
+  counts <- counts %>% group_by(country) %>% dplyr::summarise(sum = sum(count, na.rm = T)) %>% ungroup()
+  counts$iso3 <- countrycode(counts$country, "country.name", "iso3c")
+  counts$iso2 <- countrycode(counts$country, "country.name", "iso2c")
+  
+  stopifnot(sum(is.na(counts$iso2)) <= 1)
+
+  counts <- read.csv( "input/intermediaries_PanamaPapers_byCountry.csv", stringsAsFactors = F)
+} else {
+  # Geocode every country (concatenate country name with iso2 code)
+  latlon <- geocode(paste0("country=", counts$iso2), output = c("latlon"), source = "google", messaging = F)
+
+  stopifnot(!any(is.na(latlon)))
+  counts <- cbind(counts, latlon)
+  
+  write.csv(counts, file = "input/intermediaries_PanamaPapers_byCountry.csv", row.names = F)    
+} 
+
+if(getWBPop) {
+
+		indicator <- WDI(indicator = 'SP.POP.TOTL', country = counts$iso2, start = 2008, end = 2015)
+		colnames(indicator)[3] <- 'values'
+
+		ummatched <- c("AI", "CK", "GG", "JE", "NU", "NF", "TW", "VG")
+		counts %>% filter(iso2 %in% ummatched)
+		
+		pop <- do.call(rbind, by(indicator, indicator$iso2c, function(ii) {
+			rowx <- !is.na(ii[,3])
+			if(all(!rowx)) {
+				ii[1,]
+			} else if (all(rowx)){
+				ii[which.max(ii$year),]
+			} else {
+				ii[which(rowx)[1],]
+			}
+		}))
+
+  pop <- pop %>% select(-country, -year) %>% rename(pop = values, iso2 = iso2c)
+  
+  counts <- left_join(counts, pop)
+  
+  write.csv(counts, file = "input/intermediaries_PanamaPapers_byCountry_Pop.csv", row.names = F)    
+} else {
+  counts <- read.csv( "input/intermediaries_PanamaPapers_byCountry_Pop.csv", stringsAsFactors = F)  
+}
+
+```
+
+
+```{r Map}
+counts$countPerCapita <- (counts$sum / counts$pop) * 10^6
+
+# laod translation file
+txt <- read.csv(translation.file, stringsAsFactors = F, header = T, row.names = 1)
+cidx <- unique(which(txt =="", T)[,2])
+if(length(cidx > 0)) {
+  warning(paste(colnames(txt)[cidx], collapse = "\t"), " languagues will be discarded!", "\n")
+  txt <- txt[,-cidx, drop = F]
+}
+
+fontSize <- "0.9em"
+mb_tiles <- 'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+    
+i <- 1
+for (i in 1:ncol(txt)) {
+ 
+    dd <- counts[!is.na(counts$iso2),]
+    
+    lang <- colnames(txt)[i]
+    output.html <- paste("panamaPaper_intermediaries_map_", lang, ".html", sep ="")
+    
+    # get language specific translations
+    dd$geo <- countryTranslation(as.character(dd$iso2), toupper(lang))[,2]
+    mb_attribution <- paste0('Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ')
+
+    cite <- paste0(txt['source',lang], ": ", htmlLink(txt['source.link',lang], txt['source.name',lang]), " | swissinfo.ch")
+    
+    if(lang == 'AR') {
+      topP <- paste0('<div align=\"right\"><p dir=\"rtl\" style=\"font-size:', fontSize, '\"><strong>', dd$geo, "</strong><br>" )
+    } else {
+      topP <- paste0('<p style=\"font-size:', fontSize, '\"><strong>', dd$geo, "</strong><br>")
+    }
+    
+    if(lang == 'AR') {
+      popup <- paste0(topP, dd$sum, " ",  txt["layer.abs", lang], "</p>", ifelse(lang == 'ar', "</div>", ""))
+    } else {
+      popup <- paste0(topP, format(dd$sum, big.mark   = " "), " ",  txt["layer.abs", lang], "</p>", ifelse(lang == 'ar', "</div>", ""))   
+    } 
+    
+    map <- leaflet(data = dd, height = 600) %>% addTiles(urlTemplate = mb_tiles, attribution = mb_attribution) %>%
+      addCircleMarkers(lng = ~lon, lat = ~lat, stroke = FALSE, fillOpacity = 0.4, fillColor = "#ab3d3f",
+      radius = ~sqrt(sum) / 1.5, popup = popup) %>%
+      setView(6, 30, zoom = 3)
+
+    
+   save_html(
+    tags$html(
+      tags$head(includeHTML("styles.html")),
+      tags$body(    
+        h2(txt["main.title",lang]),
+        div(class = "descr", HTML(txt["descr",lang])),
+        div(class="graphic", map),
+        div(id = "cite", HTML(cite))
+      )), file = output.html, libdir = "js")     
+
+    original <- list.files("js", "leaflet.css", full.names = T, recursive = T)
+  
+    file.copy(list.files(system.file("extdata", package="swiRcharts"), 'leaflet.css', full.names = T), original, overwrite = T)
+   
+}
+
+  
+
+
+
+```
