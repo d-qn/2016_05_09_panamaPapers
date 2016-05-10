@@ -1,8 +1,15 @@
 code,EN,FR,DE,IT,PT,AR,RU,ES,JA,ZH
-main.title,The intermediaries invoved in the Panama papers,,,,,,,,,
-descr,"The ""intermediaries"" are typically a law-firm or a middleman that asks an offshore service provider to create an offshore firm for a client. Mossack Fonseca worked with more than 14,000 of these intermediaries shown in this map.",,,,,,,,,
+main.title,Intermediaries involved in the Panama Papers,,,Intermediari coinvolti nei Panama Papers,,"الوسطاء المذكورون في ""وثائق بنما""",,,,牵涉进巴拿马文件的中间人
+descr,"""Intermediaries"" are typically a law firm or a middleman who asks an offshore service provider to create an offshore firm for a client. Mossack Fonseca worked with more than 14,000 intermediaries, as shown in this map.",,,"
+
+Gli “intermediari” sono solitamente studi legali o agenti
+che chiedono a un fornitore di servizi offshore di creare una società offshore
+per un cliente. Mossack Fonseca ha lavorato con oltre 14'000 intermediari, come
+illustrato su questa cartina.
+
+",,"""الوسطاء"" هم في العادة مكتب محاماة أو وسيط يطلب من مقدم خدمات خارج الحدود إنشاء شركة ""أوف شور"" أو عابرة للبحار لفائدة العميل. شركة موساك فونسيكا عملت مع أكثر من 14،000 من هؤلاء الوسطاء مثلما هو مُبيّن في هذه الخريطة.",,,,
 source,Source,source,Quelle,Fonte,fonte,المصدر,Источник,Fuente,出典,来源
-source.name,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists
+source.name,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,الإتحاد الدولي للصحفيين الإستقصائيين,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,国际调查记者同盟
 source.link,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org
 code,Code,code,Code,Codice,código,الرمز,Код,código,コード,代码
-layer.abs,intermediaries,,,,,,,,,
+layer.abs,intermediaries,,,,,الوسطاء,,,,

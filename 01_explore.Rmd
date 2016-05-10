@@ -66,6 +66,8 @@ if(!geocode) {
 
 
 ```{r Map}
+counts %>% arrange(desc(sum))
+
 # laod translation file
 txt <- read.csv(translation.file, stringsAsFactors = F, header = T, row.names = 1)
 
@@ -107,7 +109,7 @@ for (i in 1:ncol(txt)) {
     map <- leaflet(data = dd, height = 600) %>% addTiles(urlTemplate = mb_tiles, attribution = mb_attribution) %>%
       addCircleMarkers(lng = ~lon, lat = ~lat, stroke = FALSE, fillOpacity = 0.4, fillColor = "#ab3d3f",
       radius = ~sqrt(sum) / 1.5, popup = popup) %>%
-      setView(6, 30, zoom = 3)
+      setView(32, 30, zoom = 2)
 
    save_html(
     tags$html(
@@ -116,7 +118,8 @@ for (i in 1:ncol(txt)) {
         h2(txt["main.title",lang]),
         div(class = "descr", HTML(txt["descr",lang])),
         div(class="graphic", map),
-        div(id = "cite", HTML(cite))
+        div(id = "cite", HTML(cite)),
+         HTML('<script type="text/javascript" src="https://www.swissinfo.ch/static/Themes/basic/js/vendor/iframeResizer.contentWindow.3.5.3.min.js"></script>')  
       )), file = output.html, libdir = "js")     
 
     original <- list.files("js", "leaflet.css", full.names = T, recursive = T)
