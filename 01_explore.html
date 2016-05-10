@@ -94,39 +94,10 @@ img {
   counts &lt;- cbind(counts, latlon)
   
   write.csv(counts, file = &quot;input/intermediaries_PanamaPapers_byCountry.csv&quot;, row.names = F)    
-} 
-
-if(getWBPop) {
-
-        indicator &lt;- WDI(indicator = 'SP.POP.TOTL', country = counts$iso2, start = 2008, end = 2015)
-        colnames(indicator)[3] &lt;- 'values'
-
-        ummatched &lt;- c(&quot;AI&quot;, &quot;CK&quot;, &quot;GG&quot;, &quot;JE&quot;, &quot;NU&quot;, &quot;NF&quot;, &quot;TW&quot;, &quot;VG&quot;)
-        counts %&gt;% filter(iso2 %in% ummatched)
-        
-        pop &lt;- do.call(rbind, by(indicator, indicator$iso2c, function(ii) {
-            rowx &lt;- !is.na(ii[,3])
-            if(all(!rowx)) {
-                ii[1,]
-            } else if (all(rowx)){
-                ii[which.max(ii$year),]
-            } else {
-                ii[which(rowx)[1],]
-            }
-        }))
-
-  pop &lt;- pop %&gt;% select(-country, -year) %&gt;% rename(pop = values, iso2 = iso2c)
-  
-  counts &lt;- left_join(counts, pop)
-  
-  write.csv(counts, file = &quot;input/intermediaries_PanamaPapers_byCountry_Pop.csv&quot;, row.names = F)    
-} else {
-  counts &lt;- read.csv( &quot;input/intermediaries_PanamaPapers_byCountry_Pop.csv&quot;, stringsAsFactors = F)  
-}</code></pre>
-<pre class="r"><code>counts$countPerCapita &lt;- (counts$sum / counts$pop) * 10^6
-
-# laod translation file
+} </code></pre>
+<pre class="r"><code># laod translation file
 txt &lt;- read.csv(translation.file, stringsAsFactors = F, header = T, row.names = 1)
+
 cidx &lt;- unique(which(txt ==&quot;&quot;, T)[,2])
 if(length(cidx &gt; 0)) {
   warning(paste(colnames(txt)[cidx], collapse = &quot;\t&quot;), &quot; languagues will be discarded!&quot;, &quot;\n&quot;)
@@ -136,7 +107,7 @@ if(length(cidx &gt; 0)) {
 <pre class="r"><code>fontSize &lt;- &quot;0.9em&quot;
 mb_tiles &lt;- 'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
     
-i &lt;- 1
+#i &lt;- 1
 for (i in 1:ncol(txt)) {
  
     dd &lt;- counts[!is.na(counts$iso2),]
@@ -167,7 +138,6 @@ for (i in 1:ncol(txt)) {
       radius = ~sqrt(sum) / 1.5, popup = popup) %&gt;%
       setView(6, 30, zoom = 3)
 
-    
    save_html(
     tags$html(
       tags$head(includeHTML(&quot;styles.html&quot;)),

@@ -6,23 +6,17 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-library(magrittr)
 library(dplyr)
 library(tidyr)
-library(swiTheme)
-library(ggplot2)
 library(leaflet)
 library(countrycode)
 library(htmlwidgets)
 library(htmltools)
-library(swiRcharts)
 library(swiMap)
+library(swiRcharts)
 library(ggmap)
-library(WDI)
 
 geocode <- F
-getWBPop <- F
-
 translation.file <- "input/Panama Papers intermediaries - Sheet1.csv"
 ```
 
@@ -68,43 +62,13 @@ if(!geocode) {
   
   write.csv(counts, file = "input/intermediaries_PanamaPapers_byCountry.csv", row.names = F)    
 } 
-
-if(getWBPop) {
-
-		indicator <- WDI(indicator = 'SP.POP.TOTL', country = counts$iso2, start = 2008, end = 2015)
-		colnames(indicator)[3] <- 'values'
-
-		ummatched <- c("AI", "CK", "GG", "JE", "NU", "NF", "TW", "VG")
-		counts %>% filter(iso2 %in% ummatched)
-		
-		pop <- do.call(rbind, by(indicator, indicator$iso2c, function(ii) {
-			rowx <- !is.na(ii[,3])
-			if(all(!rowx)) {
-				ii[1,]
-			} else if (all(rowx)){
-				ii[which.max(ii$year),]
-			} else {
-				ii[which(rowx)[1],]
-			}
-		}))
-
-  pop <- pop %>% select(-country, -year) %>% rename(pop = values, iso2 = iso2c)
-  
-  counts <- left_join(counts, pop)
-  
-  write.csv(counts, file = "input/intermediaries_PanamaPapers_byCountry_Pop.csv", row.names = F)    
-} else {
-  counts <- read.csv( "input/intermediaries_PanamaPapers_byCountry_Pop.csv", stringsAsFactors = F)  
-}
-
 ```
 
 
 ```{r Map}
-counts$countPerCapita <- (counts$sum / counts$pop) * 10^6
-
 # laod translation file
 txt <- read.csv(translation.file, stringsAsFactors = F, header = T, row.names = 1)
+
 cidx <- unique(which(txt =="", T)[,2])
 if(length(cidx > 0)) {
   warning(paste(colnames(txt)[cidx], collapse = "\t"), " languagues will be discarded!", "\n")
@@ -114,7 +78,7 @@ if(length(cidx > 0)) {
 fontSize <- "0.9em"
 mb_tiles <- 'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
     
-i <- 1
+#i <- 1
 for (i in 1:ncol(txt)) {
  
     dd <- counts[!is.na(counts$iso2),]
@@ -145,7 +109,6 @@ for (i in 1:ncol(txt)) {
       radius = ~sqrt(sum) / 1.5, popup = popup) %>%
       setView(6, 30, zoom = 3)
 
-    
    save_html(
     tags$html(
       tags$head(includeHTML("styles.html")),
@@ -161,9 +124,4 @@ for (i in 1:ncol(txt)) {
     file.copy(list.files(system.file("extdata", package="swiRcharts"), 'leaflet.css', full.names = T), original, overwrite = T)
    
 }
-
-  
-
-
-
 ```
