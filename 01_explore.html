@@ -423,9 +423,9 @@ cidx &lt;- unique(which(txt ==&quot;&quot;, T)[,2])
 if(length(cidx &gt; 0)) {
   warning(paste(colnames(txt)[cidx], collapse = &quot;\t&quot;), &quot; languagues will be discarded!&quot;, &quot;\n&quot;)
   txt &lt;- txt[,-cidx, drop = F]
-}</code></pre>
-<pre><code>## Warning: FR  DE  IT  PT  RU  ES  JA  ZH languagues will be discarded!</code></pre>
-<pre class="r"><code>fontSize &lt;- &quot;0.9em&quot;
+}
+
+fontSize &lt;- &quot;0.9em&quot;
 mb_tiles &lt;- 'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
     
 #i &lt;- 1

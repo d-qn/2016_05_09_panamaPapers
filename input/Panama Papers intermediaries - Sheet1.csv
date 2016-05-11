@@ -1,15 +1,23 @@
 code,EN,FR,DE,IT,PT,AR,RU,ES,JA,ZH
-main.title,Intermediaries involved in the Panama Papers,,,Intermediari coinvolti nei Panama Papers,,"الوسطاء المذكورون في ""وثائق بنما""",,,,牵涉进巴拿马文件的中间人
-descr,"""Intermediaries"" are typically a law firm or a middleman who asks an offshore service provider to create an offshore firm for a client. Mossack Fonseca worked with more than 14,000 intermediaries, as shown in this map.",,,"
+main.title,Intermediaries involved in the Panama Papers,Intermédiaires cités dans les Panama Papers,"Intermediäre, die in den Panama Papers auftauchen",Intermediari coinvolti nei Panama Papers,Intermediários citados nos Panama Papers,"الوسطاء المذكورون في ""وثائق بنما""","Финансовые посредники, упомянутые в ""Панамских бумагах""",Intermediarios implicados en los 'papeles de Panamá',"
+
+パナマ文書で浮上する「仲介役」
+
+",牵涉进巴拿马文件的中间人
+descr,"""Intermediaries"" are typically a law firm or a middleman who asks an offshore service provider to create an offshore firm for a client. Mossack Fonseca worked with more than 14,000 intermediaries, as shown in this map.","Les «intermédiaires» sont typiquement des études d’avocat ou des personnes qui demandent à un cabinet spécialisé de créer une société offshore pour le compte d’un client. Mossack Fonseca travaillait avec plus de 14'000 intermédiaires, comme le montre cette carte.","Intermediäre sind typischerweise Anwaltskanzleien oder Mittelsmänner. Sie beauftragen einen Anbieter von Offshore-Dienstleistungen mit der Gründung einer Offshore-Firma für einen Kunden. Mossack Fonseca arbeitete mit über 14'000 Intermediären zusammen, wie die Übersicht zeigt. ","
 
 Gli “intermediari” sono solitamente studi legali o agenti
 che chiedono a un fornitore di servizi offshore di creare una società offshore
 per un cliente. Mossack Fonseca ha lavorato con oltre 14'000 intermediari, come
 illustrato su questa cartina.
 
-",,"""الوسطاء"" هم في العادة مكتب محاماة أو وسيط يطلب من مقدم خدمات خارج الحدود إنشاء شركة ""أوف شور"" أو عابرة للبحار لفائدة العميل. شركة موساك فونسيكا عملت مع أكثر من 14،000 من هؤلاء الوسطاء مثلما هو مُبيّن في هذه الخريطة.",,,,
-source,Source,source,Quelle,Fonte,fonte,المصدر,Источник,Fuente,出典,来源
-source.name,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,الإتحاد الدولي للصحفيين الإستقصائيين,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,国际调查记者同盟
+","""Intermediários"" são tipicamente escritórios de advocacia ou indivíduos que procuram uma empresa especializada para criar uma empresa offshore em nome de um cliente. Mossack Fonseca trabalhou com mais de 14.000 intermediários, como este mapa mostra.","""الوسطاء"" هم في العادة مكتب محاماة أو وسيط يطلب من مقدم خدمات خارج الحدود إنشاء شركة ""أوف شور"" أو عابرة للبحار لفائدة العميل. شركة موساك فونسيكا عملت مع أكثر من 14،000 من هؤلاء الوسطاء مثلما هو مُبيّن في هذه الخريطة.","«Посредником», как правило, называют юридическую фирму, которая по поручению своего клиента договаривается с поставщиком оффшорных услуг о создании для клиента оффшорной компании. Mossack Fonseca работала с более чем 14 тыс. посредниками по всему миру, как показано на этой карте.","Los 'intermediarios' son despachos de abogados u otros agentes que ofrecen a sus clientes un proveedor de servicios de deslocalización geográfica de la sede de una empresa. Mossack Fonseca trabajó con mas de 14 000 de estos intermediarios, como lo muestra este mapa.","
+
+「仲介役」の多くは法律会社などで、顧客の依頼を受けてタックスヘイブンにペーパー会社を設立した。こうした「仲介役」からの依頼を請け負った法律会社のモサック・フォンセカは、１万４千以上の「仲介役」と取り引きがあったことがこのマップで分かる。
+
+",“中间人”通常为律师事务所或代理人，它们往往帮助离岸服务提供商设立一家海外匿名空壳公司。如图中所示，巴拿马律师事务所莫萨克·冯赛卡律师行(Mossack Fonseca)与1.4万名中间人有所往来。
+source,Source,Source,Quelle,Fonte,fonte,المصدر,Источник,Fuente,出典,来源
+source.name,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,The International Consortium for Investigative Journalists,الإتحاد الدولي للصحفيين الإستقصائيين,The International Consortium for Investigative Journalists,"Consorcio Internacional de Periodistas de Investigación (ICIJ, en sus siglas en inglés)",The International Consortium for Investigative Journalists,国际调查记者联盟
 source.link,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org,https://offshoreleaks.icij.org
-code,Code,code,Code,Codice,código,الرمز,Код,código,コード,代码
-layer.abs,intermediaries,,,,,الوسطاء,,,,
+code,Code,Code,Code,Codice,código,الرمز,Код,código,コード,代码
+layer.abs,intermediaries,intermédiaires ,Intermediäre,intermediari,intermediários,وسيط,посредник,intermediarios,仲介役,中间人
